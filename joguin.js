@@ -20,17 +20,16 @@ function startGame(str) {
 	}
 	else {
 		var n = Math.floor(Math.random()*20)%3+8
-		for (var i=0;i<n;i++) {
-			var x = Math.random()
-			for (var j=0;j<freq.length-1;j++) {
-				if (x >= freq[j] && x < freq[j+1]) {
-					valid.push(String.fromCharCode(j+65))
-					break
-				}
+			for (var i=0;i<n;i++) {
+				var x = Math.random()
+					for (var j=0;j<freq.length-1;j++) {
+						if (x >= freq[j] && x < freq[j+1]) {
+							valid.push(String.fromCharCode(j+65))
+								break
+						}
+					}
 			}
-		}
 	}
-	alert(valid)
 	v = valid
 	valid = []
 	for (var i=0;i<v.length;i++) {
@@ -46,23 +45,59 @@ function loadGame() {
 		}
 	}
 	var text = document.getElementById('input_word').value
-		startGame(text)
-		document.getElementById('settings').hidden = true
+	startGame(text)
+	needed = valid
+	var s = ""
+	for (var i=0;i<valid.length;i++) {
+		s += '<div style="display: inline-block; width: 100px;" id="' + valid[i] + '">' + valid[i] + '</div>'
+	}
+	document.getElementById('needed').innerHTML = s
+	document.getElementById('settings').hidden = true
+	document.getElementById('game').hidden = false
 }
 
-function addWord(str) {
+function addWord() {
+	document.getElementById('output').innerHTML = ""
+	var str = document.getElementById('input').value
 	str = str.toUpperCase()
 	if (used.includes(str)) {
-		//cant add word animation
+		document.getElementById('output').innerHTML = "word already used"
 	}
 	else {
 		var count = 0
 		for (var i = 0;i<needed.length;i++) {
-			if (str.split('').includes(needed.split('')[i])) count++;
+			if (str.split('').includes(needed[i])) count++;
 		}
-		//check if all letters are ok
-		used.push(str);
+		var ok = 1
+		var g = []
+		for (var i=0;i<26;i++) g.push(0)
+		for (var i=0;i<valid.length;i++) {
+			g[valid[i].charCodeAt(0)-65]++
+		}
+		for (var i=0;i<str.split('').length;i++) {
+			g[str.split('')[i].charCodeAt(0)-65]--
+		}
+		for (var i=0;i<26;i++) {
+			if (g[i] < 0) ok = 0;
+		}
+		if (ok) {
+			if (count) {
+				used.push(str)
+				needed = str.split('')
+			}
+			else {
+				document.getElementById('output').innerHTML = "use a letter from last word"
+			}
+		}
+		else {
+			document.getElementById('output').innerHTML = "invalid letter"
+		}
 	}
+	var s = ""
+	for (var i=0;i<used.length;i++) {
+		s = s.concat(used[i]+"<br>")
+	}
+	document.getElementById('lista').innerHTML = s
 }
 
 

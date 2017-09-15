@@ -9,12 +9,16 @@
 <table><tr>
 <td><input type="radio" name="language" value="pt-br" checked="true"/>Portugues</td>
 <td><input type="radio" name="language" value="en"/>English</td>
-</tr><table>
+</tr></table>
 <br>Input Word: <input type="text" id="input_word"/><br><br>
 <input type="button" value='Submit' onclick="loadGame(); return false;"/>
 </div>
-<div id="game">
-
+<div id="game" hidden="true">
+<p id="output"></p>
+<div id="needed"></div>
+<br>Input: <input type="text" id="input"/><br><br>
+<input type="button" value='Submit' onclick="addWord(); return false;"/>
+<p id="lista"></p>
 </div>
 </body>
 </html>
