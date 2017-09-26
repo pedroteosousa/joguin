@@ -86,7 +86,7 @@ function addWord(str) {
 		if ('A' <= temp[i] && temp[i] <= 'Z') str += temp[i]
 	}
 	if (used.includes(str)) {
-		document.getElementsById('submit_alert').innerHTML = "Word was already used!"
+		document.getElementById('submit_alert').innerHTML = "Word was already used!"
 		$('#submit_alert').show()
 	}
 	else {
