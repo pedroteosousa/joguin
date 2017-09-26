@@ -1,0 +1,8 @@
+a {
+	color: #000000;
+}
+
+.list-group {
+	max-height: calc(100vh - (100px + 150px));
+    overflow-y:scroll; 
+}
